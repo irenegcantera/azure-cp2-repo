@@ -1,7 +1,7 @@
 # Creacion del recurso de grupo
 resource "azurerm_resource_group" "rg" {
 
-  name     = "myResourceGroup"
+  name     = "myResourceGroup" # variables.tf
   location = "westus2"
 
 }
@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "rg" {
 # Creacion del recurso ACR
 resource "azurerm_container_registry" "acr" {
 
-  name                = "contenedorRegistryPrueba1"
+  name                = "contenedorRegistryPrueba1" # variables.tf
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Premium"
@@ -20,7 +20,7 @@ resource "azurerm_container_registry" "acr" {
 # Creacion del recurso vm de linux
 resource "azurerm_virtual_network" "vnet" {
 
-  name                = "vnet1"
+  name                = "vnet1" # variables.tf
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_subnet" "subnet" {
 
-  name                 = "subnet1"
+  name                 = "subnet1" # variables.tf
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
@@ -38,7 +38,7 @@ resource "azurerm_subnet" "subnet" {
 
 resource "azurerm_network_interface" "nic" {
 
-  name                = "vnic"
+  name                = "vnic" # variables.tf
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -50,18 +50,18 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "vm1"
+  name                = "vm1" # variables.tf
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_B1s"
-  admin_username      = "admin"
+  admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
 
   admin_ssh_key {
-    username   = "admin"
-    public_key = file("/home/admin/.ssh/id_rsa.pub")
+    username   = "azureuser"
+    public_key = file("/home/irene/.ssh/id_rsa.pub")
   }
 
   os_disk {
