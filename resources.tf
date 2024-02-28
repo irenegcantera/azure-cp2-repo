@@ -60,7 +60,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   ]
 
   admin_ssh_key {
-    username   = "azureuser"
+    username   = azurerm_linux_virtual_machine.vm.admin_username
     public_key = file("/home/irene/.ssh/id_rsa.pub")
   }
 
