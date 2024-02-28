@@ -1,15 +1,15 @@
 # Creacion del recurso de grupo
 resource "azurerm_resource_group" "rg" {
 
-  name     = "myResourceGroup" # variables.tf
-  location = "westus2"
+  name     = var.name_rg"
+  location = var.location
 
 }
 
 # Creacion del recurso ACR
 resource "azurerm_container_registry" "acr" {
 
-  name                = "contenedorRegistryPrueba1" # variables.tf
+  name                = var.name_arc
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Premium"
@@ -20,7 +20,7 @@ resource "azurerm_container_registry" "acr" {
 # Creacion del recurso vm de linux
 resource "azurerm_virtual_network" "vnet" {
 
-  name                = "vnet1" # variables.tf
+  name                = var.name_vnet
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_subnet" "subnet" {
 
-  name                 = "subnet1" # variables.tf
+  name                 = var.name_subnet
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
@@ -38,7 +38,7 @@ resource "azurerm_subnet" "subnet" {
 
 resource "azurerm_network_interface" "nic" {
 
-  name                = "vnic" # variables.tf
+  name                = var.name_nic
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -50,7 +50,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "vm1" # variables.tf
+  name                = var.name_vm
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_B1s"
@@ -61,7 +61,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = azurerm_linux_virtual_machine.vm.admin_username
-    public_key = file("/home/irene/.ssh/id_rsa.pub")
+    public_key = file(var.public_key_path)
   }
 
   os_disk {
