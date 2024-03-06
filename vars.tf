@@ -34,6 +34,12 @@ variable "name_nic" {
   default     = "vnic"
 }
 
+variable "name_ip" {
+  type        = string
+  description = "Interfaz de red de la infraestructura"
+  default     = "myIp"
+}
+
 variable "name_vm" {
   type        = string
   description = "Máquina virtual de la infraestructura"
@@ -47,7 +53,7 @@ variable "public_key_path" {
 }
 
 variable "ssh_user" {
-  type = string
+  type        = string
   description = "Usuario para hacer ssh"
-  default = "azureuser"
+  default     = "azureuser"
 }
