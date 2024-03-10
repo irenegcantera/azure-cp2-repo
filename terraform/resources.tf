@@ -2,6 +2,10 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.name_rg
   location = var.location
+
+  tags = {
+    environment = "caso-practico-2"
+  }
 }
 
 # Creacion del recurso ACR
@@ -14,45 +18,19 @@ resource "azurerm_container_registry" "acr" {
 }
 
 # Creacion del recurso vm de linux
-resource "azurerm_virtual_network" "vnet" {
-  name                = var.name_vnet
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-}
-
-resource "azurerm_subnet" "subnet" {
-  name                 = var.name_subnet
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.2.0/24"]
-}
-
-resource "azurerm_network_interface" "nic" {
-  name                = var.name_nic
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Dynamic"
-  }
-}
-
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = var.name_vm
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_B1s"
-  admin_username      = "azureuser"
+  admin_username      = var.ssh_user
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
 
   admin_ssh_key {
     username   = var.ssh_user
-    public_key = file(var.public_key_path)
+    public_key = file(var.public_key_path) #tls_private_key.ssh_key.public_key_openssh
   }
 
   os_disk {
@@ -61,9 +39,31 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
+    publisher = "Debian"
+    offer     = "debian-11"
+    sku       = "11-backports-gen2"
     version   = "latest"
+  }
+}
+
+# Creación AKS
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = "aks"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  dns_prefix          = "aks-dns"
+
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    vm_size    = "Standard_D2_v2"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    Environment = "caso-practico-2"
   }
 }
