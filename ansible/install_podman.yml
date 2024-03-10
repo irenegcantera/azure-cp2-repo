@@ -1,0 +1,19 @@
+- name: Podman configuration
+  hosts: azure_vm
+  remote_user: "{{ ssh_user }}"
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:       
+    - name: Install Podman
+      become: yes
+      ansible.builtin.package:
+        name: podman
+        state: present
+        update_cache: true
+    - name: Check Podman version installed
+      ansible.builtin.command: podman --version
+      register: podver
+    - name: Print Podman version
+      debug:
+        var: podver.stdout

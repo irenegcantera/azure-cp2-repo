@@ -1,11 +1,41 @@
-- name: Install PODMAN
+- name: Deploy a container podman
   hosts: azure_vm
-  remote_user: irene
+  remote_user: "{{ ssh_user }}"
   become: true
-  tasks:       
-    - name: Install Podman
-      become: yes
-      ansible.builtin.package:
-        name: podman
-        state: present
-        update_cache: true
+  vars_files:
+    - vars.yml
+  tasks:
+  
+    - name: Pull an image "docker.io/httpd:latest"
+      containers.podman.podman_image:
+        name: docker.io/library/httpd
+        
+    - name: Taggear la imagen
+      shell: podman tag httpd contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2
+
+    - name: Login to registry "contenedorRegistryPrueba1"
+      containers.podman.podman_login:
+        username: "contenedorRegistryPrueba1"
+        password: "iKulvoOdLmApPprzRP4dPbrRPCY99dM/iLf4WjN8XD+ACRCgpaq/"
+        registry: "contenedorregistryprueba1.azurecr.io"
+
+    - name: Push an image "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+      containers.podman.podman_image:
+        push: true
+        name: "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+        username: "contenedorRegistryPrueba1"
+        password: "iKulvoOdLmApPprzRP4dPbrRPCY99dM/iLf4WjN8XD+ACRCgpaq/"
+
+    - name: Pull an image "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+      containers.podman.podman_image:
+        pull: true
+        name: "contenedorregistryprueba1.azurecr.io/public/httpd"
+        tag: "casopractico2"
+        
+    - name: Create a container with status strated
+      containers.podman.podman_container:
+        name: container
+        image: "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+        state: started
+        ports:
+          - "80:80"
