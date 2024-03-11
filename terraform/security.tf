@@ -14,10 +14,6 @@ resource "azurerm_network_security_group" "secGroup" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  tags = {
-    environment = "caso-practico-2"
-  }
 }
 
 resource "azurerm_network_interface_security_group_association" "secGroupAssociation" {

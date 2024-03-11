@@ -2,10 +2,6 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.name_rg
   location = var.location
-
-  tags = {
-    environment = "caso-practico-2"
-  }
 }
 
 # Creacion del recurso ACR
@@ -61,9 +57,5 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   identity {
     type = "SystemAssigned"
-  }
-
-  tags = {
-    Environment = "caso-practico-2"
   }
 }
