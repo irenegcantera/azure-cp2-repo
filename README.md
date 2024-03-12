@@ -18,16 +18,23 @@ En el directorio **/terraform** tenemos los siguientes ficheros:
 | `security.tf`  | Archivo de configuración de la seguridad de la máquina virtual |
 | `vars.tf`      | Archivo de variables globales                                  |
 
+### Despliegue de la infraestructura
+
+Inicializa un directorio de trabajo que contiene los archivos de configuración de Terraform. 
 ```yaml
   terraform init
 ```
-
+Crea un plan de ejecución para previsualizar los cambios que Terraform planea realizar en su infraestructura. 
 ```yaml
   terraform plan -out <plan_name>.tfplan
 ```
-
+Ejecuta las acciones propuestas en un plan de ejecución.
 ```yaml
   terraform apply <plan_name>.tfplan
+```
+Destruye todos los objetos remotos gestionados.
+```yaml
+  terraform destroy
 ```
 
 ## Ansible
