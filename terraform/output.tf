@@ -8,6 +8,10 @@ output "ssh_public_key" {
   sensitive = true
 }
 
+output "host_ip" {
+  value = azurerm_public_ip.ipPublica.id
+}
+
 output "client_certificate_aks" {
   value     = azurerm_kubernetes_cluster.aks.kube_config[0].client_certificate
   sensitive = true
