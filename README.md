@@ -9,14 +9,14 @@ Con Terraform se va a crear la infraestructura en el proveedor de Azure. La infr
 
 En el directorio **/terraform** tenemos los siguientes ficheros:
 
-| Archivo        | Descripción                |
-| :------------- | :------------------------- |
-| `main.tf`      | **Required**. Your API key |
-| `network.tf`   | **Required**. Your API key |
-| `output.tf`    | **Required**. Your API key |
-| `resources.tf` | **Required**. Your API key |
-| `security.tf`  | **Required**. Your API key |
-| `vars.tf`      | **Required**. Your API key |
+| Archivo        | Descripción                                                    |
+| :------------- | :------------------------------------------------------------- |
+| `provider.tf`  | Archivo de configuración del proveedor de la infraestructura   |
+| `network.tf`   | Archivo de configuración de la red de la máquina virtual       |
+| `output.tf`    | Archivo de variables sensitive de salida                       |
+| `resources.tf` | Archivo de configuración de los recursos de la infraestructura |
+| `security.tf`  | Archivo de configuración de la seguridad de la máquina virtual |
+| `vars.tf`      | Archivo de variables globales                                  |
 
 ```yaml
   terraform init
