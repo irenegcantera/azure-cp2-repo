@@ -1,1 +1,5 @@
 ssh_user: azureuser
+acr_username: contenedorRegistryPrueba1
+acr_password: tXJLltnqdQ1Rfny4FpGJfGc497HbRU0f39ZwImZTQU+ACRCeHoqn
+acr_server_registry: contenedorregistryprueba1.azurecr.io
+vm_public_ip: 20.190.32.207

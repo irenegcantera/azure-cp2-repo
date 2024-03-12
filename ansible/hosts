@@ -1,2 +1,2 @@
 [azure_vm]
-20.191.126.152
+{{ vm_public_ip }}

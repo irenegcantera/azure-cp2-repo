@@ -11,31 +11,32 @@
         name: docker.io/library/httpd
         
     - name: Taggear la imagen
-      shell: podman tag httpd contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2
+      shell: podman tag httpd {{ acr_server_registry }}/public/httpd:casopractico2
 
-    - name: Login to registry "contenedorRegistryPrueba1"
+    - name: Login to registry "{{ acr_username }}"
       containers.podman.podman_login:
-        username: "contenedorRegistryPrueba1"
-        password: "iKulvoOdLmApPprzRP4dPbrRPCY99dM/iLf4WjN8XD+ACRCgpaq/"
-        registry: "contenedorregistryprueba1.azurecr.io"
+        username: "{{ acr_username }}"
+        password: "{{ acr_password }}"
+        registry: "{{ acr_server_registry }}"
 
-    - name: Push an image "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+    - name: Push an image "{{ acr_server_registry }}/public/httpd:casopractico2"
       containers.podman.podman_image:
         push: true
-        name: "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
-        username: "contenedorRegistryPrueba1"
-        password: "iKulvoOdLmApPprzRP4dPbrRPCY99dM/iLf4WjN8XD+ACRCgpaq/"
+        name: "{{ acr_server_registry }}/public/httpd:casopractico2"
+        username: "{{ acr_username }}"
+        password: "{{ acr_password }}"
 
-    - name: Pull an image "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+    - name: Pull an image "{{ acr_server_registry }}/public/httpd:casopractico2"
       containers.podman.podman_image:
         pull: true
-        name: "contenedorregistryprueba1.azurecr.io/public/httpd"
+        name: "{{ acr_server_registry }}/public/httpd"
         tag: "casopractico2"
         
     - name: Create a container with status strated
       containers.podman.podman_container:
         name: container
-        image: "contenedorregistryprueba1.azurecr.io/public/httpd:casopractico2"
+        image: "{{ acr_server_registry }}/public/httpd:casopractico2"
         state: started
         ports:
           - "80:80"
+        

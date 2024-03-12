@@ -51,7 +51,7 @@ En el directorio **/ansible** tenemos los siguientes ficheros:
 | `inventory.yml`        | **Required**. Your API key |
 | `vars.yml`             | **Required**. Your API key |
 
-Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
+Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml y en hosts debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
 
 Lanzar los siguientes comandos para obtener los valores (si no se ha modificado el username no será necesario lanzar el primer y segundo comando):
 ```yaml
@@ -60,7 +60,7 @@ terraform output acr_username
 terraform output acr_password
 terraform output vm_public_ip
 ```
-Despúes, modificar el archivo vars.yml con los valores devueltos.
+Despúes, modificar el archivo vars.yml y hosts con los valores devueltos.
 
 ### Despliegue del servicio y aplicación
 
