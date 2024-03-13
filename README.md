@@ -43,15 +43,16 @@ Con Ansible se va a crear la desplegar un servicio web en la máquina virtual cr
 
 En el directorio **/ansible** tenemos los siguientes ficheros:
 
-| Archivo                | Descripción                |
-| :--------------------- | :------------------------- |
-| `deploy_container.yml` | **Required**. Your API key |
-| `hosts`                | **Required**. Your API key |
-| `install_podman.yml`   | **Required**. Your API key |
-| `inventory.yml`        | **Required**. Your API key |
-| `vars.yml`             | **Required**. Your API key |
+| Archivo                       | Descripción                |
+| :---------------------------- | :------------------------- |
+| `deploy_container_podman.yml` | **Required**. Your API key |
+| `hosts`                       | **Required**. Your API key |
+| `inventory.yml`               | **Required**. Your API key |
+| `push_image_registry.yml`     | **Required**. Your API key |
+| `setup.yml`                   | **Required**. Your API key |
+| `vars.yml`                    | **Required**. Your API key |
 
-Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml y en hosts debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
+Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml y en inventory.yml debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
 
 Lanzar los siguientes comandos para obtener los valores (si no se ha modificado el username no será necesario lanzar el primer y segundo comando):
 ```yaml
@@ -60,10 +61,19 @@ terraform output acr_username
 terraform output acr_password
 terraform output vm_public_ip
 ```
-Despúes, modificar el archivo vars.yml y hosts con los valores devueltos.
+Despúes, modificar el archivo vars.yml y inventory.yml con los valores devueltos.
 
 ### Despliegue del servicio y aplicación
 
+Ejecuta el playbook setup.yml para instalar Podman en la máquina virtual de Azure.
 ```yaml
-  ansible-playbook
+  ansible-playbook -i inventory.yml setup.yml
+```
+Ejecuta el playbook push_image_registry.yml para descargar la imagen Apache server y subirla al contendor registry creado en Azure.
+```yaml
+  ansible-playbook -i inventory.yml push_image_registry.ym
+```
+Ejecuta el playbook deploy_container_podman.yml para descagar la imagen subida anteriormente y desplegar el contenedor de Apache server.
+```yaml
+  ansible-playbook -i inventory.yml deploy_container_podman.yml
 ```
