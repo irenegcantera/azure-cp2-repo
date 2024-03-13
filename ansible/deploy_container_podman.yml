@@ -1,0 +1,21 @@
+- name: Deploy an Apache server container 
+  hosts: azure_vm
+  remote_user: "{{ ssh_user }}"
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:
+
+    - name: Pull an image "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+      containers.podman.podman_image:
+        pull: true
+        name: "{{ acr_server_registry }}/cp2/httpd"
+        tag: "{{ tag_image }}"
+        
+    - name: Create a container with status strated
+      containers.podman.podman_container:
+        name: container
+        image: "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+        state: started
+        ports:
+          - "80:80"

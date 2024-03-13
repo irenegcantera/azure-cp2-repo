@@ -1,5 +1,6 @@
 ssh_user: azureuser
 acr_username: contenedorRegistryPrueba1
-acr_password: tXJLltnqdQ1Rfny4FpGJfGc497HbRU0f39ZwImZTQU+ACRCeHoqn
+acr_password: 2LYfUpRD/nMit/h7TBfYZrxyKZACAc+sur2cTAV8MK+ACRC7JJZ3
 acr_server_registry: contenedorregistryprueba1.azurecr.io
-vm_public_ip: 20.190.32.207
+vm_public_ip: 20.191.86.210
+tag_image: casopractico2
