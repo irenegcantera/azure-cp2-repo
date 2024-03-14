@@ -1,9 +1,11 @@
 
-# Caso práctico 2 - Terraform y Ansible
+# Caso práctico 2 - Despliegue de infraestructuras sobre proveedor cloud Azure (Terraform y Ansible)
 
 Repositorio donde se almacena los archivos de configuración y contrucción de la infraestructura en el proveedor de Azure. También se almacena los archivos para el despliegue de un servicio web y una aplicación.
 
-## Terraform
+A continuación, se indica cómo desplegar manualmente la infraestructura con Terraform y las aplicaciones en el apartado 1 y 2, respectivamente. En el apartado 3 se indica cómo se puede desplegar todo a la vez de forma automática. Se puede usar el método que más os convenga.
+
+## 1. Terraform
 
 Con Terraform se va a crear la infraestructura en el proveedor de Azure. La infraestructura que se va a crear en ACR, VM y AKS.
 
@@ -18,7 +20,7 @@ En el directorio **/terraform** tenemos los siguientes ficheros:
 | `security.tf`  | Archivo de configuración de la seguridad de la máquina virtual |
 | `vars.tf`      | Archivo de variables globales                                  |
 
-### Despliegue de la infraestructura
+### 1.1. Despliegue de la infraestructura
 
 Inicializa un directorio de trabajo que contiene los archivos de configuración de Terraform. 
 ```yaml
@@ -36,8 +38,30 @@ Destruye todos los objetos remotos gestionados.
 ```yaml
   terraform destroy
 ```
+Genera el gráfico de la infraestructura
 
-## Ansible
+https://hieven.github.io/
+```yaml
+  terraform show -json <plan_name>.tfplan > <plan_name>.json
+```
+
+Instala Graphviz en el caso de que lo hayas hecho.
+Genera el gráfico de la infraestructura.
+```yaml
+  sudo apt-get install graphviz
+  terraform graph -type=plan | dot -Tpng > <plan_name>.png
+  terraform graph | dot -Tsvg > <plan_name>.svg
+```
+
+https://terraform-docs.io/
+```yaml
+curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.17.0/terraform-docs-v0.17.0-$(uname)-amd64.tar.gz
+tar -xzf terraform-docs.tar.gz
+sudo snap install terraform-docs
+
+```
+
+## 2. Ansible
 
 Con Ansible se va a crear la desplegar un servicio web en la máquina virtual creada con Terraform. A parte se va a desplegar una aplicación en AKS.
 
@@ -63,7 +87,7 @@ terraform output vm_public_ip
 ```
 Despúes, modificar el archivo vars.yml y inventory.yml con los valores devueltos.
 
-### Despliegue del servicio y aplicación
+### 2.1. Despliegue del servicio y aplicación
 
 Ejecuta el playbook setup.yml para instalar Podman en la máquina virtual de Azure.
 ```yaml
@@ -77,3 +101,6 @@ Ejecuta el playbook deploy_container_podman.yml para descagar la imagen subida a
 ```yaml
   ansible-playbook -i inventory.yml deploy_container_podman.yml
 ```
+## 3. Despliegue automatizado
+
+Lanza el script deploy.sh
