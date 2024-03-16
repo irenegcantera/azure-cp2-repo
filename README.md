@@ -96,6 +96,11 @@ Destruye todos los objetos remotos gestionados.
 ```yaml
   terraform destroy
 ```
+Ejecuta tras unos minutos el siguiente comando, ya que la IP pública puede tardar en asignarse.
+```yaml
+  terraform refresh
+```
+
 Genera el gráfico de la infraestructura
 
 https://hieven.github.io/
