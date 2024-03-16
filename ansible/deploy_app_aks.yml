@@ -21,7 +21,7 @@
           - "80:80"
       
     - name: List Podman containers
-      ansible.builtin.command: podman ps
+      ansible.builtin.command: podman container list
       register: podlist
       
     - name: Print Podman list containers

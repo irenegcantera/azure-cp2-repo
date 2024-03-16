@@ -40,6 +40,12 @@ variable "name_ip" {
   default     = "myIp"
 }
 
+variable "domain_name" {
+  type = string
+  description = "Nombre de la etiqueta dominio de la IP pública"
+  default = "domainpruebairene"
+}
+
 variable "name_vm" {
   type        = string
   description = "Máquina virtual de la infraestructura"

@@ -33,6 +33,8 @@ resource "azurerm_public_ip" "ipPublica" {
   name                = var.name_ip
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  domain_name_label   = var.domain_name
   allocation_method   = "Dynamic"
   sku                 = "Basic"
 }
+
