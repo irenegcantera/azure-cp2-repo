@@ -101,27 +101,27 @@ Destruye todos los objetos remotos gestionados.
   terraform destroy
 ```
 
-Genera el gráfico de la infraestructura
-
-https://hieven.github.io/
+Genera el gráfico de la infraestructura en la carpeta **/charts/**. DEspués de ejecutar el siguiente comando sube el archivo JSON generado en la siguiente página web https://hieven.github.io/terraform-visual/
 ```yaml
-  terraform show -json <plan_name>.tfplan > <plan_name>.json
+  terraform show -json <plan_name>.tfplan > ../charts/<plan_name>.json
 ```
-
 Instala Graphviz en el caso de que lo hayas hecho.
+```yaml
+  sudo apt-get install graphviz
+```
 Genera el gráfico de la infraestructura.
 ```yaml
   sudo apt-get install graphviz
-  terraform graph -type=plan | dot -Tpng > <plan_name>.png
-  terraform graph | dot -Tsvg > <plan_name>.svg
+  terraform graph -type=plan | dot -Tpng > ../charts/<plan_name>.png
+  terraform graph | dot -Tsvg > ../charts/<plan_name>.svg
 ```
-
+Genera la documentación de la infraestructura desplegada con Terraform.
 https://terraform-docs.io/
 ```yaml
 curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.17.0/terraform-docs-v0.17.0-$(uname)-amd64.tar.gz
 tar -xzf terraform-docs.tar.gz
 sudo snap install terraform-docs
-
+terraform-docs markdown table . > markdown_table.md
 ```
 
 ## 2. Ansible
