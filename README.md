@@ -15,8 +15,8 @@ En el directorio **/terraform** tenemos los siguientes ficheros:
 | :------------- | :------------------------------------------------------------- |
 | `provider.tf`  | Archivo de configuración del proveedor de la infraestructura   |
 | `network.tf`   | Archivo de configuración de la red de la máquina virtual       |
-| `output.tf`    | Archivo de variables sensitive de salida                       |
-| `resources.tf` | Archivo de configuración de los recursos de la infraestructura |
+| `outputs.tf`   | Archivo de variables sensitive de salida                       |
+| `recursos.tf`  | Archivo de configuración de los recursos de la infraestructura |
 | `security.tf`  | Archivo de configuración de la seguridad de la máquina virtual |
 | `vars.tf`      | Archivo de variables globales                                  |
 
