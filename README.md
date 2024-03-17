@@ -92,13 +92,13 @@ Ejecuta las acciones propuestas en un plan de ejecución.
 ```yaml
   terraform apply <plan_name>.tfplan
 ```
-Destruye todos los objetos remotos gestionados.
-```yaml
-  terraform destroy
-```
 Ejecuta tras unos minutos el siguiente comando, ya que la IP pública puede tardar en asignarse.
 ```yaml
   terraform refresh
+```
+Destruye todos los objetos remotos gestionados.
+```yaml
+  terraform destroy
 ```
 
 Genera el gráfico de la infraestructura
