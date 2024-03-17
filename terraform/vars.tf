@@ -1,7 +1,7 @@
-variable "name_rg" {
+variable "resource_group_name" {
   type        = string
-  description = "Recurso de grupo de la infraestructura"
-  default     = "myResourceGroup"
+  description = "Nombre del recurso de grupo de la infraestructura"
+  default     = "resourceGroupIrene"
 }
 
 variable "location" {
@@ -10,46 +10,46 @@ variable "location" {
   default     = "westus2"
 }
 
-variable "name_arc" {
+variable "azurerc_name" {
   type        = string
-  description = "Contenedor de azure registry de la infraestructura"
-  default     = "contenedorRegistryPrueba1"
+  description = "Nombre del contenedor de azure registry de la infraestructura"
+  default     = "arcIrene"
 }
 
-variable "name_vnet" {
+variable "virtual_net_name" {
   type        = string
   description = "Red virtual de la infraestructura"
-  default     = "vnet1"
+  default     = "vnetIrene"
 }
 
-variable "name_subnet" {
+variable "subnet_name" {
   type        = string
   description = "Subnet de la infraestructura"
-  default     = "subnet1"
+  default     = "subnetIrene"
 }
 
-variable "name_nic" {
+variable "net_interface_name" {
   type        = string
   description = "Interfaz de red de la infraestructura"
-  default     = "vnic"
+  default     = "vnicIrene"
 }
 
-variable "name_ip" {
+variable "ip_name" {
   type        = string
   description = "Interfaz de red de la infraestructura"
-  default     = "myIp"
+  default     = "ipIrene"
 }
 
-variable "domain_name" {
+variable "domain_ip_name" {
   type = string
   description = "Nombre de la etiqueta dominio de la IP pública"
-  default = "domainpruebairene"
+  default = "domain-irene"
 }
 
-variable "name_vm" {
+variable "virtual_machine_name" {
   type        = string
   description = "Máquina virtual de la infraestructura"
-  default     = "vm1"
+  default     = "vmIrene"
 }
 
 variable "public_key_path" {

@@ -1,12 +1,12 @@
 # Creacion del recurso de grupo
 resource "azurerm_resource_group" "rg" {
-  name     = var.name_rg
+  name     = var.resource_group_name
   location = var.location
 }
 
 # Creacion del recurso ACR
 resource "azurerm_container_registry" "acr" {
-  name                = var.name_arc
+  name                = var.azurerc_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Premium"
@@ -15,7 +15,7 @@ resource "azurerm_container_registry" "acr" {
 
 # Creacion del recurso vm de linux
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = var.name_vm
+  name                = var.virtual_machine_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_B1s"
@@ -26,7 +26,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.ssh_user
-    public_key = file(var.public_key_path) #tls_private_key.ssh_key.public_key_openssh
+    public_key = file(var.public_key_path)
   }
 
   os_disk {
@@ -59,3 +59,4 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 }
+
