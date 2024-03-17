@@ -77,9 +77,25 @@ En el directorio **/terraform** tenemos los siguientes ficheros:
 
 ### 1.6. Despliegue de la infraestructura
 
+Antes de desplegar la infraestructura hay que iniciar sesión en el proveedor con Azure CLI y guardarnos el ID de la subscrición para crear un Service Principal. 
+```yaml
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<SUBSCRIPTION_ID>"
+```
+Después de crear ese Service Principal obtendremos unas credenciales que serán usadas por Terraform para conectarse a Azure. Añadimos esas credenciales como variables de entorno:
+```yaml
+export ARM_CLIENT_ID="<APPID_VALUE>"
+export ARM_CLIENT_SECRET="<PASSWORD_VALUE>"
+export ARM_SUBSCRIPTION_ID="<SUBSCRIPTION_ID>"
+export ARM_TENANT_ID="<TENANT_VALUE>"
+```
 Inicializa un directorio de trabajo que contiene los archivos de configuración de Terraform. 
 ```yaml
   terraform init
+```
+Comprobar que los archivos de configuración presentan el formato correcto y si la configuración es válida.
+```yaml
+  terraform fmt
+  terraform validate
 ```
 Crea un plan de ejecución para previsualizar los cambios que Terraform planea realizar en su infraestructura. 
 ```yaml
@@ -97,8 +113,7 @@ Destruye todos los objetos remotos gestionados.
 ```yaml
   terraform destroy
 ```
-
-Genera el gráfico de la infraestructura en la carpeta **/charts/**. DEspués de ejecutar el siguiente comando sube el archivo JSON generado en la siguiente página web https://hieven.github.io/terraform-visual/
+Genera el gráfico de la infraestructura en la carpeta **/charts/**. Después de ejecutar el siguiente comando sube el archivo JSON generado en la siguiente página web https://hieven.github.io/terraform-visual/
 ```yaml
   terraform show -json <plan_name>.tfplan > ../charts/<plan_name>.json
 ```
@@ -108,7 +123,6 @@ Instala Graphviz en el caso de que lo hayas hecho.
 ```
 Genera el gráfico de la infraestructura.
 ```yaml
-  sudo apt-get install graphviz
   terraform graph -type=plan | dot -Tpng > ../charts/<plan_name>.png
   terraform graph | dot -Tsvg > ../charts/<plan_name>.svg
 ```
