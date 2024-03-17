@@ -156,14 +156,11 @@ Ejecuta el playbook setup.yml para instalar Podman en la máquina virtual de Azu
 ```yaml
   ansible-playbook -i inventory.yml setup.yml
 ```
-Ejecuta el playbook push_image_registry.yml para descargar la imagen Apache server y subirla al contendor registry creado en Azure.
+Ejecuta el playbook push_image_registry.yml para descargar la imagen Apache y la base de datos MySQL. Las imágenes se subirán al contendor registry creado en Azure.
 ```yaml
-  ansible-playbook -i inventory.yml push_image_registry.ym
+  ansible-playbook -i inventory.yml push_images_registry.yml
 ```
 Ejecuta el playbook deploy_container_podman.yml para descagar la imagen subida anteriormente y desplegar el contenedor de Apache server.
 ```yaml
   ansible-playbook -i inventory.yml deploy_container_podman.yml
 ```
-## 3. Despliegue automatizado
-
-Lanza el script deploy.sh
