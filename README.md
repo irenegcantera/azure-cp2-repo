@@ -1,5 +1,5 @@
 
-# Caso práctico 2 - Despliegue de infraestructuras sobre proveedor cloud Azure (Terraform y Ansible)
+# Caso práctico 2 - Automatización de despliegue de infraestructuras en el entorno cloud Azure (Terraform y Ansible)
 
 Repositorio donde se almacena los archivos de configuración y contrucción de la infraestructura en el proveedor de Azure. También se almacena los archivos para el despliegue de un servicio web y una aplicación.
 
