@@ -143,23 +143,23 @@ En el directorio **/ansible** tenemos los siguientes ficheros:
 
 | Archivo                       | Descripción                |
 | :---------------------------- | :------------------------- |
-| `deploy_container_podman.yml` | **Required**. Your API key |
-| `hosts`                       | **Required**. Your API key |
-| `inventory.yml`               | **Required**. Your API key |
-| `push_image_registry.yml`     | **Required**. Your API key |
-| `setup.yml`                   | **Required**. Your API key |
-| `vars.yml`                    | **Required**. Your API key |
+| `deploy_container_podman.yml` | N/A |
+| `hosts`                       | N/A |
+| `inventory.yml`               | N/A |
+| `push_images_registry.yml`    | N/A |
+| `setup.yml`                   | N/A |
+| `vars.yml`                    | N/A |
 
-Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml y en inventory.yml debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
+Antes de desplegar con Ansible, hay que actualizar los valores de las keys del fichero vars.yml e en inventory.yml debido a que hay keys que se modifican con cada ejecución del plan de la infraestructura de Terraform. Por ejemplo, la IP Pública.
 
-Lanzar los siguientes comandos para obtener los valores (si no se ha modificado el username no será necesario lanzar el primer y segundo comando):
+Lanzar los siguientes comandos para obtener los valores (si no se ha modificado el username no será necesario lanzar el primer ni el segundo comando):
 ```yaml
 terraform output acr_server_registry
 terraform output acr_username
 terraform output acr_password
 terraform output vm_public_ip
 ```
-Despúes, modificar el archivo vars.yml y inventory.yml con los valores devueltos.
+Despúes, modificar el archivo vars.yml e inventory.yml con los valores devueltos.
 
 ### 2.1. Despliegue del servicio y aplicación
 
