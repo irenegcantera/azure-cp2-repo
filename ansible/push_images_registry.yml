@@ -15,10 +15,10 @@
         name: docker.io/library/mysql
         
     - name: Tag the image "docker.io/httpd:latest"
-      shell: podman tag httpd {{ acr_server_registry }}/cp2/httpd:{{ tag_image }}
+      shell: podman tag httpd {{ acr_server_registry }}/cp2/podman/httpd:{{ tag_image }}
         
     - name: Tag the image "docker.io/mysql:latest"
-      shell: podman tag mysql {{ acr_server_registry }}/cp2/mysql:{{ tag_image }}
+      shell: podman tag mysql {{ acr_server_registry }}/cp2/aks/mysql:{{ tag_image }}
 
     - name: Login to registry "{{ acr_username }}"
       containers.podman.podman_login:
@@ -26,17 +26,17 @@
         password: "{{ acr_password }}"
         registry: "{{ acr_server_registry }}"
 
-    - name: Push an image "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+    - name: Push an image "{{ acr_server_registry }}/cp2/podman/httpd:{{ tag_image }}"
       containers.podman.podman_image:
         push: true
-        name: "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+        name: "{{ acr_server_registry }}/cp2/podman/httpd:{{ tag_image }}"
         username: "{{ acr_username }}"
         password: "{{ acr_password }}"
         
-    - name: Push an image "{{ acr_server_registry }}/cp2/mysql:{{ tag_image }}"
+    - name: Push an image "{{ acr_server_registry }}/cp2/aks/mysql:{{ tag_image }}"
       containers.podman.podman_image:
         push: true
-        name: "{{ acr_server_registry }}/cp2/mysql:{{ tag_image }}"
+        name: "{{ acr_server_registry }}/cp2/aks/mysql:{{ tag_image }}"
         username: "{{ acr_username }}"
         password: "{{ acr_password }}"
 

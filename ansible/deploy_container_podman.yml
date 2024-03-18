@@ -6,16 +6,16 @@
     - vars.yml
   tasks:
 
-    - name: Pull an image "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+    - name: Pull an image "{{ acr_server_registry }}/cp2/podman/httpd:{{ tag_image }}"
       containers.podman.podman_image:
         pull: true
-        name: "{{ acr_server_registry }}/cp2/httpd"
+        name: "{{ acr_server_registry }}/cp2/podman/httpd"
         tag: "{{ tag_image }}"
         
     - name: Create a container with status strated
       containers.podman.podman_container:
         name: container
-        image: "{{ acr_server_registry }}/cp2/httpd:{{ tag_image }}"
+        image: "{{ acr_server_registry }}/cp2/podman/httpd:{{ tag_image }}"
         state: started
         ports:
           - "80:80"
